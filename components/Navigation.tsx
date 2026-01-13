@@ -42,6 +42,12 @@ export default function Navigation() {
               Skills
             </button>
             <button
+              onClick={() => scrollToSection('blog')}
+              className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+            >
+              Blog
+            </button>
+            <button
               onClick={() => scrollToSection('contact')}
               className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >

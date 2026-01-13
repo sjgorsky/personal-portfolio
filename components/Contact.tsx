@@ -6,14 +6,22 @@ export default function Contact() {
           Get In Touch
         </h2>
         <p className="text-lg text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto">
-          I'm always open to discussing new opportunities, interesting projects, or just having a chat about software development.
+          I&apos;m always open to discussing new opportunities, interesting projects, or just having a chat about software development.
         </p>
-        <div className="space-y-4">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
-            href="mailto:your.email@example.com"
+            href="mailto:sgorsky@gmail.com"
             className="inline-block px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
           >
             Send Email
+          </a>
+          <a
+            href="https://www.linkedin.com/in/scottjgorsky/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-8 py-4 bg-blue-600 dark:bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
+          >
+            LinkedIn
           </a>
         </div>
       </div>

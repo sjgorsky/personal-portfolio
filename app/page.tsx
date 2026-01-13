@@ -3,6 +3,7 @@ import TechnicalCompetencies from '@/components/TechnicalCompetencies';
 import Microblog from '@/components/Microblog';
 import Contact from '@/components/Contact';
 import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <TechnicalCompetencies />
       <Microblog />
       <Contact />
+      <Footer />
     </main>
   );
 }

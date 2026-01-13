@@ -146,6 +146,44 @@ const technologies: TechIcon[] = [
       />
     ),
   },
+  {
+    name: 'React Native',
+    icon: (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="-11.5 -10.23174 23 20.46348" className="w-16 h-16">
+        <title>React Native Logo</title>
+        <circle cx="0" cy="0" r="2.05" fill="#61dafb" />
+        <g stroke="#61dafb" strokeWidth="1" fill="none">
+          <ellipse rx="11" ry="4.2" />
+          <ellipse rx="11" ry="4.2" transform="rotate(60)" />
+          <ellipse rx="11" ry="4.2" transform="rotate(120)" />
+        </g>
+      </svg>
+    ),
+  },
+  {
+    name: 'Redux',
+    icon: (
+      <Image
+        src="https://raw.githubusercontent.com/reduxjs/redux/master/logo/logo.png"
+        alt="Redux Logo"
+        width={64}
+        height={64}
+        className="w-16 h-16"
+      />
+    ),
+  },
+  {
+    name: 'Node.js',
+    icon: (
+      <Image
+        src="https://www.clipartmax.com/png/middle/87-879058_formation-node-js-node-js-logo-vector.png"
+        alt="Node.js Logo"
+        width={64}
+        height={64}
+        className="w-16 h-16"
+      />
+    ),
+  },
 ];
 
 export default function TechnicalCompetencies() {
@@ -153,20 +191,37 @@ export default function TechnicalCompetencies() {
     <section id="skills" className="py-20 px-6 bg-gray-50 dark:bg-gray-900">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900 dark:text-white">
-          Technical Competencies
+          Technologies
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 justify-items-center">
-          {technologies.map((tech) => (
-            <div
-              key={tech.name}
-              className="flex flex-col items-center justify-center p-6 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
-            >
-              <div className="mb-4">{tech.icon}</div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                {tech.name}
-              </h3>
+        <div className="flex flex-col items-center gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 justify-items-center">
+            {technologies.slice(0, 5).map((tech) => (
+              <div
+                key={tech.name}
+                className="flex flex-col items-center justify-center p-6 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div className="mb-4">{tech.icon}</div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  {tech.name}
+                </h3>
+              </div>
+            ))}
+          </div>
+          {technologies.length > 5 && (
+            <div className="flex flex-wrap justify-center gap-8">
+              {technologies.slice(5).map((tech) => (
+                <div
+                  key={tech.name}
+                  className="flex flex-col items-center justify-center p-6 rounded-lg bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="mb-4">{tech.icon}</div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {tech.name}
+                  </h3>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
       </div>
     </section>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import ReactPlayer from 'react-player';
 
 interface BlogPost {
   id: number;
@@ -125,6 +126,22 @@ export default function Microblog() {
       month: 'long',
       day: 'numeric',
     });
+  };
+
+  const isYouTubeUrl = (url: string): boolean => {
+    if (!url) return false;
+    const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)/;
+    return youtubeRegex.test(url);
+  };
+
+  const extractYouTubeUrl = (text: string): string | null => {
+    // Match YouTube URLs including query parameters
+    const youtubeRegex = /https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=[\w-]+[^\s]*|youtu\.be\/[\w-]+[^\s]*|youtube\.com\/embed\/[\w-]+)/;
+    const match = text.match(youtubeRegex);
+    if (match) {
+      return match[0];
+    }
+    return null;
   };
 
   return (
@@ -318,9 +335,35 @@ export default function Microblog() {
                 <div className="prose prose-gray dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
                   <ReactMarkdown
                     components={{
-                      p: ({ node, ...props }) => (
-                        <p className="mb-4 last:mb-0" {...props} />
-                      ),
+                      p: ({ node, children, ...props }: any) => {
+                        // Extract text content from children (handles both string and React nodes)
+                        const getTextContent = (node: any): string => {
+                          if (typeof node === 'string') return node;
+                          if (typeof node === 'number') return String(node);
+                          if (Array.isArray(node)) return node.map(getTextContent).join('');
+                          if (node && node.props && node.props.children) return getTextContent(node.props.children);
+                          return '';
+                        };
+                        
+                        const textContent = getTextContent(children);
+                        const youtubeUrl = extractYouTubeUrl(textContent);
+                        
+                        // If the paragraph contains only a YouTube URL, render as embed
+                        if (youtubeUrl && textContent.trim() === youtubeUrl) {
+                          return (
+                            <div className="my-4 aspect-video">
+                              {/* @ts-expect-error - react-player types issue */}
+                              <ReactPlayer
+                                src={youtubeUrl}
+                                width="100%"
+                                height="100%"
+                                controls
+                              />
+                            </div>
+                          );
+                        }
+                        return <p className="mb-4 last:mb-0" {...props}>{children}</p>;
+                      },
                       h1: ({ node, ...props }) => (
                         <h1 className="text-2xl font-bold mt-6 mb-4" {...props} />
                       ),
@@ -356,12 +399,30 @@ export default function Microblog() {
                           {...props}
                         />
                       ),
-                      a: ({ node, ...props }) => (
-                        <a
-                          className="text-blue-600 dark:text-blue-400 hover:underline"
-                          {...props}
-                        />
-                      ),
+                      a: ({ node, href, children, ...props }: any) => {
+                        if (href && isYouTubeUrl(href)) {
+                          return (
+                            <div className="my-4 aspect-video">
+                              {/* @ts-expect-error - react-player types issue */}
+                              <ReactPlayer
+                                url={href}
+                                width="100%"
+                                height="100%"
+                                controls
+                              />
+                            </div>
+                          );
+                        }
+                        return (
+                          <a
+                            href={href}
+                            className="text-blue-600 dark:text-blue-400 hover:underline"
+                            {...props}
+                          >
+                            {children}
+                          </a>
+                        );
+                      },
                       blockquote: ({ node, ...props }) => (
                         <blockquote
                           className="border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic my-4"

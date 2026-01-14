@@ -23,6 +23,14 @@ export default function Contact() {
           >
             LinkedIn
           </a>
+          <a
+            href="https://github.com/sjgorsky"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-8 py-4 bg-gray-900 dark:bg-gray-800 text-white rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
+          >
+            GitHub
+          </a>
         </div>
       </div>
     </section>

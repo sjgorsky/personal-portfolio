@@ -352,7 +352,6 @@ export default function Microblog() {
                         if (youtubeUrl && textContent.trim() === youtubeUrl) {
                           return (
                             <div className="my-4 aspect-video">
-                              {/* @ts-expect-error - react-player types issue */}
                               <ReactPlayer
                                 src={youtubeUrl}
                                 width="100%"

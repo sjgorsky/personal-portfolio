@@ -49,20 +49,6 @@ Open [http://localhost:3001](http://localhost:3001) with your browser to see the
 └── public/                 # Static assets
 ```
 
-## Customization
-
-1. Update your personal information in the component files
-2. Modify the contact email in `components/Contact.tsx`
-3. Add or remove technologies in `components/TechnicalCompetencies.tsx`
-4. Customize colors and styling in `tailwind.config.ts` and component files
-
-## Build for Production
-
-```bash
-npm run build
-npm start
-```
-
 ## License
 
 MIT License - see LICENSE file for details

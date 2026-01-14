@@ -2,16 +2,24 @@
 
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   const scrollToSection = (sectionId: string) => {
+    if (pathname !== '/') {
+      // If not on home page, navigate to home first
+      window.location.href = `/#${sectionId}`;
+      return;
+    }
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -35,12 +43,12 @@ export default function Navigation() {
             >
               Skills
             </button>
-            <button
-              onClick={() => scrollToSection('blog')}
+            <Link
+              href="/blog"
               className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               Blog
-            </button>
+            </Link>
             <button
               onClick={() => scrollToSection('contact')}
               className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"

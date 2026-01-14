@@ -402,9 +402,8 @@ export default function Microblog() {
                         if (href && isYouTubeUrl(href)) {
                           return (
                             <div className="my-4 aspect-video">
-                              {/* @ts-expect-error - react-player types issue */}
                               <ReactPlayer
-                                url={href}
+                                src={href}
                                 width="100%"
                                 height="100%"
                                 controls

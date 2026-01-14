@@ -96,7 +96,7 @@ export default function Microblog() {
   };
 
   return (
-    <section className="py-20 px-6 bg-gray-50 dark:bg-gray-900 min-h-screen pt-24">
+    <section className="bg-gray-50 dark:bg-gray-900">
       <div className="max-w-3xl mx-auto">
         <div className="flex justify-between items-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">

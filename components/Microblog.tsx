@@ -102,12 +102,14 @@ export default function Microblog() {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
             Microblog
           </h2>
-          <button
-            onClick={() => setIsFormOpen(!isFormOpen)}
-            className="px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
-          >
-            {isFormOpen ? 'Cancel' : 'New Post'}
-          </button>
+          {!isFormOpen && (
+            <button
+              onClick={() => setIsFormOpen(!isFormOpen)}
+              className="px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+            >
+              New Post
+            </button>
+          )}
         </div>
 
         {isFormOpen && (

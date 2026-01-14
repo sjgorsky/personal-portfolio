@@ -31,11 +31,17 @@ const defaultPosts: BlogPost[] = [
 ];
 
 const STORAGE_KEY = 'microblog-posts';
+const ADMIN_SESSION_KEY = 'microblog-admin-session';
+const ADMIN_PASSWORD = 'Shaba$27'; // Change this to your desired password
 
 export default function Microblog() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [formData, setFormData] = useState({ title: '', content: '' });
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [loginPassword, setLoginPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   useEffect(() => {
     // Load posts from localStorage on mount
@@ -49,6 +55,12 @@ export default function Microblog() {
       }
     } else {
       setPosts(defaultPosts);
+    }
+    
+    // Check if admin session exists
+    const adminSession = sessionStorage.getItem(ADMIN_SESSION_KEY);
+    if (adminSession === 'true') {
+      setIsAdmin(true);
     }
   }, []);
 
@@ -80,10 +92,30 @@ export default function Microblog() {
   };
 
   const handleDelete = (id: number) => {
+    if (!isAdmin) return;
     if (confirm('Are you sure you want to delete this post?')) {
       const updatedPosts = posts.filter((post) => post.id !== id);
       savePosts(updatedPosts);
     }
+  };
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError('');
+    if (loginPassword === ADMIN_PASSWORD) {
+      setIsAdmin(true);
+      sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+      setShowLogin(false);
+      setLoginPassword('');
+    } else {
+      setLoginError('Incorrect password');
+    }
+  };
+
+  const handleLogout = () => {
+    setIsAdmin(false);
+    sessionStorage.removeItem(ADMIN_SESSION_KEY);
+    setIsFormOpen(false);
   };
 
   const formatDate = (dateString: string) => {
@@ -102,15 +134,90 @@ export default function Microblog() {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white">
             Microblog
           </h2>
-          {!isFormOpen && (
-            <button
-              onClick={() => setIsFormOpen(!isFormOpen)}
-              className="px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
-            >
-              New Post
-            </button>
-          )}
+          <div className="flex gap-3 items-center">
+            {isAdmin ? (
+              <>
+                {!isFormOpen && (
+                  <button
+                    onClick={() => setIsFormOpen(!isFormOpen)}
+                    className="px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+                  >
+                    New Post
+                  </button>
+                )}
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setShowLogin(true)}
+                className="px-4 py-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              >
+                Admin
+              </button>
+            )}
+          </div>
         </div>
+
+        {showLogin && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg max-w-md w-full mx-4">
+              <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+                Admin Login
+              </h3>
+              <form onSubmit={handleLogin}>
+                <div className="mb-4">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  >
+                    Password
+                  </label>
+                  <input
+                    id="password"
+                    type="password"
+                    value={loginPassword}
+                    onChange={(e) => {
+                      setLoginPassword(e.target.value);
+                      setLoginError('');
+                    }}
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    placeholder="Enter password"
+                    autoFocus
+                  />
+                  {loginError && (
+                    <p className="mt-2 text-sm text-red-600 dark:text-red-400">
+                      {loginError}
+                    </p>
+                  )}
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    type="submit"
+                    className="flex-1 px-4 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+                  >
+                    Login
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowLogin(false);
+                      setLoginPassword('');
+                      setLoginError('');
+                    }}
+                    className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-300 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
 
         {isFormOpen && (
           <form
@@ -179,11 +286,12 @@ export default function Microblog() {
                 key={post.id}
                 className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow relative group"
               >
-                <button
-                  onClick={() => handleDelete(post.id)}
-                  className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400"
-                  aria-label="Delete post"
-                >
+                {isAdmin && (
+                  <button
+                    onClick={() => handleDelete(post.id)}
+                    className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400"
+                    aria-label="Delete post"
+                  >
                   <svg
                     className="w-5 h-5"
                     fill="none"
@@ -197,7 +305,8 @@ export default function Microblog() {
                       d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                     />
                   </svg>
-                </button>
+                  </button>
+                )}
                 <time className="text-sm text-gray-500 dark:text-gray-400 mb-3 block">
                   {formatDate(post.date)}
                 </time>

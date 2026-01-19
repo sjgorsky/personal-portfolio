@@ -7,7 +7,7 @@ const roboto = Roboto({
 
 export default function Hero() {
   return (
-    <section id="hero" className="min-h-screen flex items-center justify-center px-6 pt-24 pb-20 bg-white dark:bg-gray-900 charcoal-grid">
+    <section id="hero" className="min-h-screen flex items-center justify-center px-6 pt-64 pb-20 bg-white dark:bg-gray-900 charcoal-grid">
       <div className="max-w-4xl mx-auto text-center">
         <h1 className={`text-5xl md:text-7xl font-bold mb-6 text-gray-900 dark:text-white ${roboto.className}`}>
           Scott Gorsky

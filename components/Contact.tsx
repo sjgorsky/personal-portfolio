@@ -13,7 +13,7 @@ export default function Contact() {
             href="mailto:sgorsky@gmail.com"
             className="inline-block px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
           >
-            Send Email
+            Email
           </a>
           <a
             href="https://www.linkedin.com/in/scottjgorsky/"

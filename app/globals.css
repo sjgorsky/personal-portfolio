@@ -41,4 +41,181 @@ body {
       linear-gradient(to right, rgba(120, 120, 120, 0.15) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(120, 120, 120, 0.15) 1px, transparent 1px);
   }
+
+  /* Bookshelf Header CSS Drawing */
+  .bookshelf-header {
+    position: relative;
+    width: 100%;
+    background: white;
+    overflow: hidden;
+  }
+
+  .dark .bookshelf-header {
+    background: #0a0a0a;
+  }
+
+  /* Top and bottom wooden planks */
+  .shelf-plank {
+    width: 100%;
+    height: 24px;
+    position: relative;
+  }
+
+  .shelf-plank-top {
+    background: linear-gradient(to bottom, #a67c52 0%, #8b6f47 100%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .shelf-plank-bottom {
+    background: linear-gradient(to bottom, 
+      #a67c52 0%,
+      #8b6f47 25%,
+      #6b4f38 50%,
+      #4a3520 75%,
+      #3a2a18 100%
+    );
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Thin gray shelf edges */
+  .shelf-edge {
+    width: 100%;
+    height: 1px;
+    background: #d0d0d0;
+  }
+
+  .dark .shelf-edge {
+    background: #404040;
+  }
+
+  .shelf-edge-top {
+    position: relative;
+    margin-top: -1px;
+  }
+
+  .shelf-edge-bottom {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* Decorative tabs above books */
+  .shelf-tabs {
+    display: flex;
+    justify-content: space-around;
+    padding: 8px 0 4px;
+    gap: 2px;
+    background: white;
+  }
+
+  .dark .shelf-tabs {
+    background: #0a0a0a;
+  }
+
+  .shelf-tab {
+    width: 1px;
+    height: 20px;
+    background: white;
+    position: relative;
+  }
+
+  .shelf-tab::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: black;
+  }
+
+  .dark .shelf-tab::after {
+    background: white;
+  }
+
+  /* Books row */
+  .books-row {
+    display: flex;
+    gap: 0;
+    padding: 8px 0 0;
+    background: white;
+    min-height: 120px;
+    align-items: flex-end;
+  }
+
+  .dark .books-row {
+    background: #0a0a0a;
+  }
+
+  /* Individual book spine */
+  .book-spine {
+    height: 110px;
+    position: relative;
+    background: var(--book-color);
+    background-image: linear-gradient(to right, 
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 25%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.15) 75%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 
+      inset -1px 0 2px rgba(0, 0, 0, 0.15),
+      inset 1px 0 2px rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
+
+  /* Vertical lines for titles and authors */
+  .book-line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background: rgba(255, 255, 255, 0.6);
+    opacity: 0.7;
+  }
+
+  .book-title-line {
+    /* Random lengths for titles - already set via inline styles */
+  }
+
+  .book-author-line {
+    /* Consistent lengths for authors - already set via inline styles */
+  }
+
+  /* Three dots near bottom */
+  .book-dots {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .book-dot {
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: rgba(60, 60, 60, 0.8);
+  }
+
+  .dark .book-dot {
+    background: rgba(200, 200, 200, 0.8);
+  }
+
+  .book-dots .book-dot:first-child {
+    margin-bottom: 2px;
+  }
+
+  .book-dots .book-dot:last-child {
+    margin-top: 2px;
+  }
 }

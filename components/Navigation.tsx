@@ -66,7 +66,17 @@ export default function Navigation() {
     return books;
   };
 
-  const books = generateBooks(110);
+  // Generate books only on client side to avoid hydration mismatch
+  const [books, setBooks] = useState<Array<{
+    color: string;
+    flexGrow: number;
+    titleSegments: Array<{ top: number; height: number }>;
+    authorSegments: Array<{ bottom: number; height: number }>;
+  }>>([]);
+
+  useEffect(() => {
+    setBooks(generateBooks(110));
+  }, []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-40">

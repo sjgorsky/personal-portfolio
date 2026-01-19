@@ -33,7 +33,6 @@ const defaultPosts: BlogPost[] = [
 
 const STORAGE_KEY = 'microblog-posts';
 const ADMIN_SESSION_KEY = 'microblog-admin-session';
-const ADMIN_PASSWORD = 'Shaba$27'; // Change this to your desired password
 
 export default function Microblog() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -100,16 +99,31 @@ export default function Microblog() {
     }
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginError('');
-    if (loginPassword === ADMIN_PASSWORD) {
-      setIsAdmin(true);
-      sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
-      setShowLogin(false);
-      setLoginPassword('');
-    } else {
-      setLoginError('Incorrect password');
+    
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password: loginPassword }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        setIsAdmin(true);
+        sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+        setShowLogin(false);
+        setLoginPassword('');
+      } else {
+        setLoginError(data.error || 'Incorrect password');
+      }
+    } catch (error) {
+      setLoginError('Failed to authenticate. Please try again.');
     }
   };
 

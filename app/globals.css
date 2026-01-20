@@ -42,6 +42,11 @@ body {
       linear-gradient(to bottom, rgba(120, 120, 120, 0.15) 1px, transparent 1px);
   }
 
+  /* Scroll offset for sections to account for fixed header */
+  section[id] {
+    scroll-margin-top: 256px;
+  }
+
   /* Bookshelf Header CSS Drawing */
   .bookshelf-header {
     position: relative;

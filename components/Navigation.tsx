@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import DoubleSlash from './DoubleSlash';
 
 export default function Navigation() {
   const [mounted, setMounted] = useState(false);
@@ -138,26 +139,30 @@ export default function Navigation() {
           <div className="flex items-center space-x-6">
             <button
               onClick={() => scrollToSection('hero')}
-              className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="flex items-center gap-2 text-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
+              <DoubleSlash />
               About
             </button>
             <button
               onClick={() => scrollToSection('skills')}
-              className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="flex items-center gap-2 text-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
+              <DoubleSlash />
               Skills
             </button>
             <Link
               href="/blog"
-              className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="flex items-center gap-2 text-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
+              <DoubleSlash />
               Blog
             </Link>
             <button
               onClick={() => scrollToSection('contact')}
-              className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="flex items-center gap-2 text-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
+              <DoubleSlash />
               Contact
             </button>
           </div>

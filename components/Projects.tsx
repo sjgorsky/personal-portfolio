@@ -10,7 +10,7 @@ export default function Projects() {
         <div className="flex flex-col items-center gap-8">
           <div className="w-full max-w-2xl">
             <a
-              href="https://country-flags-qmihbw7xf-sjgorskys-projects.vercel.app/"
+              href="https://country-flags-lovat.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
               className="block rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-lg transition-all overflow-hidden"

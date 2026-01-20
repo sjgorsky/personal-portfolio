@@ -151,6 +151,13 @@ export default function Navigation() {
               <DoubleSlash />
               Skills
             </button>
+            <button
+              onClick={() => scrollToSection('projects')}
+              className="flex items-center gap-2 text-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+            >
+              <DoubleSlash />
+              Projects
+            </button>
             <Link
               href="/blog"
               className="flex items-center gap-2 text-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
